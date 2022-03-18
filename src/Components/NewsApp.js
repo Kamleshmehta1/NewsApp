@@ -41,8 +41,11 @@ function NewsApp() {
         )
     }
 
+    const finalNews = news.filter((data) => data.urlToImage)
+    console.log(finalNews);
+
     const nextmove = () => {
-        if (count < news.length - 1) {
+        if (count < finalNews.length - 1) {
             setCount(count + 1)
         }
         else {
@@ -56,10 +59,12 @@ function NewsApp() {
             setCount(count - 1)
         }
         else {
-            let newCounts = news.length - 1
+            let newCounts = finalNews.length - 1
             setCount(newCounts)
         }
     }
+
+    
 
     return (
         <>
@@ -76,30 +81,27 @@ function NewsApp() {
             <>
                 <div className='news-container'>
                     {
-                        news[count].urlToImage ?
-                            <>
-                                <h1 className='title'>{news[count].title}</h1>
-                                <div className='data-container'>
-                                    <div className='data-news'>
-                                        <img src={news[count].urlToImage} className="my-img" alt="--" />
-                                    </div>
-                                    <div className='data-news'>
-                                        <ul>
-                                            <li>
-                                                <p className='description'>{news[count].description}</p>
-                                            </li>
-                                        </ul>
-                                        <div className='switch-btn'>
-                                            <button onClick={backmove} className="left"><i className="fa fa-arrow-left"></i></button>
-                                            <button onClick={nextmove} className="right"><i className="fa fa-arrow-right"></i></button>
-                                        </div>
-                                        <br />
-                                        <a href={news[count].url} className="read-more">Read More</a>
-                                    </div>
+                        <>
+                            <h1 className='title'>{finalNews[count].title}</h1>
+                            <div className='data-container'>
+                                <div className='data-news'>
+                                    <img src={finalNews[count].urlToImage} className="my-img" alt="--" />
                                 </div>
-
-
-                            </> : setCount(count + 1)
+                                <div className='data-news'>
+                                    <ul>
+                                        <li>
+                                            <p className='description'>{finalNews[count].description}</p>
+                                        </li>
+                                    </ul>
+                                    <div className='switch-btn'>
+                                        <button onClick={backmove} className="left"><i className="fa fa-arrow-left"></i></button>
+                                        <button onClick={nextmove} className="right"><i className="fa fa-arrow-right"></i></button>
+                                    </div>
+                                    <br />
+                                    <a href={finalNews[count].url} className="read-more" target="_blank">Read More</a>
+                                </div>
+                            </div>
+                        </>
                     }
                 </div>
             </>
